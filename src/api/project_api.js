@@ -22,7 +22,7 @@ export const projectShow = (id) => {
 // Read / Index
 export const projectIndex = () => {
   return axios({
-    url: apiUrl + '/journal',
+    url: apiUrl + '/projects',
     method: 'GET'
   })
 }
