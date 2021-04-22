@@ -9,6 +9,9 @@ import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
+// Resource Import
+import ProjectCreate from './components/ProjectRoutes/CreateProject'
+import ProjectShow from './components/ProjectRoutes/ShowProject'
 
 class App extends Component {
   constructor (props) {
@@ -64,6 +67,12 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/create-projects' render={() => (
+            <ProjectCreate msgAlert={this.msgAlert} user={user} />
+          )} />
+          <Route path='/projects/:id' render={() => (
+            <ProjectShow msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
         </main>
       </Fragment>
