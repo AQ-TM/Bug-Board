@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { projectIndex } from '../../api/project_api'
 
-class JournalIndex extends Component {
+class ProjectIndex extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -33,13 +33,13 @@ class JournalIndex extends Component {
         <h2>You have no projects, go create one to view it here.</h2>
       )
     }
-    const projectJsx = projects.map(journal => (
-      <div className="card" key={journal._id}>
-        <Link to={`/projects/${journal._id}`} key={journal._id}>
+    const projectJsx = projects.map(project => (
+      <div className="card" key={project._id}>
+        <Link to={`/projects/${project._id}`} key={project._id}>
           <div className="card-body">
-            <h4 className="card-title">Journal Entry</h4>
-            <p className="card-text">{journal.notes.substring(0, 25) + '...'}</p>
-            <p className="card-text">Your desire to smoke on this entry was: {journal.desireScale}</p>
+            <h4 className="card-title">{project.name}</h4>
+            <p className="card-text">{project.createdDate.substring(0, 10)}</p>
+
             {/* <p className="card-text"><small className="text-muted">Created: {journal.date.substring(0, 10)}</small></p> */}
           </div>
         </Link>
@@ -47,10 +47,10 @@ class JournalIndex extends Component {
     ))
     return (
       <div>
-        <h2>Your Journal Log: </h2>
-        {journalJsx}
+        <h2>Projects: </h2>
+        {projectJsx}
       </div>
     )
   }
 }
-export default withRouter(JournalIndex)
+export default withRouter(ProjectIndex)

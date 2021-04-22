@@ -12,6 +12,7 @@ import ChangePassword from './components/ChangePassword/ChangePassword'
 // Resource Import
 import ProjectCreate from './components/ProjectRoutes/CreateProject'
 import ProjectShow from './components/ProjectRoutes/ShowProject'
+import ProjectIndex from './components/ProjectRoutes/IndexProject'
 
 class App extends Component {
   constructor (props) {
@@ -71,7 +72,10 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/create-projects' render={() => (
             <ProjectCreate msgAlert={this.msgAlert} user={user} />
           )} />
-          <Route path='/projects/:id' render={() => (
+          <AuthenticatedRoute user={user} exact path='/projects' render={() => (
+            <ProjectIndex msgAlert={this.msgAlert} user={user} />
+          )} />
+          <Route user={user} exact path='/projects/:id' render={() => (
             <ProjectShow msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
         </main>
