@@ -13,6 +13,7 @@ import ChangePassword from './components/ChangePassword/ChangePassword'
 import ProjectCreate from './components/ProjectRoutes/CreateProject'
 import ProjectShow from './components/ProjectRoutes/ShowProject'
 import ProjectIndex from './components/ProjectRoutes/IndexProject'
+import ProjectUpdate from './components/ProjectRoutes/UpdateProject'
 
 class App extends Component {
   constructor (props) {
@@ -78,6 +79,9 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path='/projects/:id' render={() => (
             <ProjectShow msgAlert={this.msgAlert} user={user} />
           )} />
+          <AuthenticatedRoute user={user} exact path='/projects/:id/edit' render={() => (
+            <ProjectUpdate msgAlert={this.msgAlert} user={user} />
+          )}/>
         </main>
       </Fragment>
     )

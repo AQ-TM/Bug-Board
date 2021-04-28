@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
-import { projectShow } from '../../api/project_api'
-import { withRouter } from 'react-router-dom'
+import { projectShow, projectDelete } from '../../api/project_api'
+import { withRouter, Link } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
+
+const patchDelete = {
+  display: 'flex',
+  flexDirection: 'row'
+}
 
 class ProjectShow extends Component {
   constructor (props) {
@@ -27,25 +32,25 @@ class ProjectShow extends Component {
         })
       })
   }
-  // deleteJournal = () => {
-  //   const { msgAlert, user, match } = this.props
-  //   journalDelete(match.params.id, user)
-  //     .then(res => {
-  //       this.setState({ deleted: true })
-  //     })
-  //     .then(() => msgAlert({
-  //       heading: 'Deleted Journal Successfully',
-  //       message: 'Journal Deleted',
-  //       variant: 'success'
-  //     }))
-  //     .catch(error => {
-  //       msgAlert({
-  //         heading: 'Failed to delete journal',
-  //         message: 'Could not delete journal with error:' + error.message,
-  //         variant: 'danger'
-  //       })
-  //     })
-  // }
+  deleteProject = () => {
+    const { msgAlert, user, match } = this.props
+    projectDelete(match.params.id, user)
+      .then(res => {
+        this.setState({ deleted: true })
+      })
+      .then(() => msgAlert({
+        heading: 'Deleted Successfully',
+        message: 'Deleted',
+        variant: 'success'
+      }))
+      .catch(error => {
+        msgAlert({
+          heading: 'Failed to delete',
+          message: 'Could not delete with error:' + error.message,
+          variant: 'danger'
+        })
+      })
+  }
   render () {
     const { project } = this.state
     let firstProjectJsx = ''
@@ -55,7 +60,22 @@ class ProjectShow extends Component {
           <span className="sr-only">Loading...</span>
         </Spinner>
       )
-    } else if (project) {
+    }
+    if (this.props.user && this.props.user._id === project.owner) {
+      firstProjectJsx = (
+        <div className="container">
+          <div className="row">
+            <div className="col-9"><h2>Project Name: {project.name}</h2></div>
+            <div style={patchDelete}>
+              <button onClick={this.deleteProject} className="btn"><small className="text-muted"><Link to={'/'}>Delete</Link></small></button>
+              <button className="btn"><small className="text-muted"><Link to={'/projects/' + this.props.match.params.id + '/edit/'}>Edit</Link></small></button>
+            </div>
+            <div className="col-4"><h3>Target Start Date: {project.targetStartDate.substring(0, 10)}</h3></div>
+            <div className="col-6"><h3>Target End Date: {project.targetEndDate.substring(0, 10)}</h3></div>
+          </div>
+        </div>
+      )
+    } else {
       firstProjectJsx = (
         <div className="container">
           <div className="row">

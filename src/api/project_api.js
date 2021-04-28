@@ -29,3 +29,25 @@ export const projectIndex = () => {
     method: 'GET'
   })
 }
+
+export const projectUpdate = (id, project, user) => {
+  console.log('this is project', project)
+  return axios({
+    url: apiUrl + '/projects/' + id,
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${user.token}`
+    },
+    data: { project }
+  })
+}
+
+export const projectDelete = (id, user) => {
+  return axios({
+    url: apiUrl + '/projects/' + id,
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${user.token}`
+    }
+  })
+}
