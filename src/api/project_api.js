@@ -13,10 +13,13 @@ export const projectCreate = (project, user) => {
   })
 }
 // Read / Show
-export const projectShow = (id) => {
+export const projectShow = (id, user) => {
   return axios({
     url: apiUrl + '/projects/' + id,
-    method: 'GET'
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${user.token}`
+    }
   })
 }
 // Read / Index
