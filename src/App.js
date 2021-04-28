@@ -75,8 +75,8 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path='/projects' render={() => (
             <ProjectIndex msgAlert={this.msgAlert} user={user} />
           )} />
-          <Route user={user} exact path='/projects/:id' render={() => (
-            <ProjectShow msgAlert={this.msgAlert} setUser={this.setUser} />
+          <AuthenticatedRoute user={user} exact path='/projects/:id' render={() => (
+            <ProjectShow msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>

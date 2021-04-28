@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { projectShow } from '../../api/project_api'
 import { withRouter } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
@@ -11,8 +11,8 @@ class ProjectShow extends Component {
     }
   }
   componentDidMount () {
-    const { msgAlert, match } = this.props
-    projectShow(match.params.id)
+    const { msgAlert, match, user } = this.props
+    projectShow(match.params.id, user)
       .then(res => this.setState({ project: res.data.project }))
       .then(() => msgAlert({
         heading: 'Loaded project successfully',
@@ -48,7 +48,7 @@ class ProjectShow extends Component {
   // }
   render () {
     const { project } = this.state
-    let projectJsx = ''
+    let firstProjectJsx = ''
     if (!project) {
       return (
         <Spinner variant='primary' animation="border" role="status">
@@ -56,20 +56,22 @@ class ProjectShow extends Component {
         </Spinner>
       )
     } else if (project) {
-      projectJsx = (
-        <Fragment>
-          <h2>Project Name: {project.name}</h2>
-          <h3>Target Start Date: {project.targetStartDate.substring(0, 10)}</h3>
-          <h3>Target End Date: {project.targetEndDate.substring(0, 10)}</h3>
-          {/* <button><Link to={'/journal/' + this.props.match.params.id + '/edit/'}>Update Entry</Link></button> */}
-          {/* <button onClick={this.deleteJournal}><Link to={'/'}>Delete</Link></button> */}
-        </Fragment>
+      firstProjectJsx = (
+        <div className="container">
+          <div className="row">
+            <div className="col-9"><h2>Project Name: {project.name}</h2></div>
+            <div className="col-4"><h3>Target Start Date: {project.targetStartDate.substring(0, 10)}</h3></div>
+            <div className="col-6"><h3>Target End Date: {project.targetEndDate.substring(0, 10)}</h3></div>
+          </div>
+        </div>
       )
     }
     return (
-      <div className="row">
-        <div className="col-sm-10 col-md-8 mx-auto mt-5">
-          {projectJsx}
+      <div className="container-fluid">
+        <div className="row">
+          <div>
+            {firstProjectJsx}
+          </div>
         </div>
       </div>
     )
