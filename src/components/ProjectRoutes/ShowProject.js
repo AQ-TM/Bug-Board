@@ -69,6 +69,7 @@ class ProjectShow extends Component {
             <div style={patchDelete}>
               <button onClick={this.deleteProject} className="btn"><small className="text-muted"><Link to={'/'}>Delete</Link></small></button>
               <button className="btn"><small className="text-muted"><Link to={'/projects/' + this.props.match.params.id + '/edit/'}>Edit</Link></small></button>
+              <button className="btn"><small className="text-muted"><Link to={'/projects/' + this.props.match.params.id + '/issues'}>Create Issue</Link></small></button>
             </div>
             <div className="col-4"><h3>Target Start Date: {project.targetStartDate.substring(0, 10)}</h3></div>
             <div className="col-6"><h3>Target End Date: {project.targetEndDate.substring(0, 10)}</h3></div>
