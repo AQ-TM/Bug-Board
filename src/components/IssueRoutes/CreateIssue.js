@@ -32,7 +32,7 @@ class IssueCreate extends Component {
     const { issue } = this.state
     console.log('this is the user: ' + user)
     issueCreate(issue, user, match.params.id)
-      .then(res => this.setState({ createdIssueId: res.data.issue._id }))
+      .then(res => this.setState({ createdIssueId: res.data._id }))
       .then(() => msgAlert({
         heading: 'Created successfully.',
         message: 'Showing created issue',
