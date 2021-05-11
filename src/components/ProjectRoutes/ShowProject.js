@@ -63,38 +63,51 @@ class ProjectShow extends Component {
     }
     if (this.props.user && this.props.user._id === project.owner) {
       firstProjectJsx = (
-        <div className="container">
-          <div className="row">
-            <div className="col-9"><h2>Project Name: {project.name}</h2></div>
-            <div style={patchDelete}>
-              <button onClick={this.deleteProject} className="btn"><small className="text-muted"><Link to={'/'}>Delete</Link></small></button>
-              <button className="btn"><small className="text-muted"><Link to={'/projects/' + this.props.match.params.id + '/edit/'}>Edit</Link></small></button>
-              <button className="btn"><small className="text-muted"><Link to={'/projects/' + this.props.match.params.id + '/issues'}>Create Issue</Link></small></button>
-            </div>
-            <div className="col-4"><h3>Target Start Date: {project.targetStartDate.substring(0, 10)}</h3></div>
-            <div className="col-6"><h3>Target End Date: {project.targetEndDate.substring(0, 10)}</h3></div>
+        <div>
+          <div className="col-9"><h2>Project Name: {project.name}</h2></div>
+          <div style={patchDelete}>
+            <button onClick={this.deleteProject} className="btn"><small className="text-muted"><Link to={'/'}>Delete</Link></small></button>
+            <button className="btn"><small className="text-muted"><Link to={'/projects/' + this.props.match.params.id + '/edit/'}>Edit</Link></small></button>
+            <button className="btn"><small className="text-muted"><Link to={'/projects/' + this.props.match.params.id + '/issues'}>Create Issue</Link></small></button>
           </div>
+          <div className="col-4"><h3>Target Start Date: {project.targetStartDate.substring(0, 10)}</h3></div>
+          <div className="col-6"><h3>Target End Date: {project.targetEndDate.substring(0, 10)}</h3></div>
         </div>
       )
     } else {
       firstProjectJsx = (
-        <div className="container">
-          <div className="row">
-            <div className="col-9"><h2>Project Name: {project.name}</h2></div>
-            <div className="col-4"><h3>Target Start Date: {project.targetStartDate.substring(0, 10)}</h3></div>
-            <div className="col-6"><h3>Target End Date: {project.targetEndDate.substring(0, 10)}</h3></div>
-          </div>
+        <div>
+          <div className="col-12"><h2>Project Name: {project.name}</h2></div>
+          <div className="col-12"><h3>Target Start Date: {project.targetStartDate.substring(0, 10)}</h3></div>
+          <div className="col-12"><h3>Target End Date: {project.targetEndDate.substring(0, 10)}</h3></div>
         </div>
       )
     }
     return (
-      <div className="container-fluid">
-        <div className="row">
-          <div>
-            {firstProjectJsx}
+      <div id="main-wrapper">
+        <div id="project-issue-container">
+          <div className="container__sidebar">
+            <div className="sidebar">
+              <div className="sidebar__intro">
+                <div>{firstProjectJsx}</div>
+              </div>
+              <ul className="sidebar__menu">
+                <li><a aria-current="page" className="" href="/">Project Info</a></li>
+                <li><a href="/about">Create issues</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="container__body">
+            <div className="container__mobile-header">
+              <div className="mobile-header">
+                <div className="mobile-header__menu">
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
     )
   }
 }
