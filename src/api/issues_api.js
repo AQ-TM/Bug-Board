@@ -13,3 +13,10 @@ export const issueCreate = (issue, user, id) => {
     data: { issue }
   })
 }
+
+export const issueIndex = (id) => {
+  return axios({
+    url: apiUrl + '/projects/' + id + '/view-issues',
+    method: 'GET'
+  })
+}

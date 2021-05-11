@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import { Redirect } from 'react-router-dom'
 import IssueForm from '../IssueForm/IssueForm'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { issueCreate } from '../../api/issues_api'
 
 class IssueCreate extends Component {
@@ -15,7 +15,7 @@ class IssueCreate extends Component {
         resolutionSummary: '',
         status: ''
       },
-      createdIssueId: null
+      createdIssueId: false
     }
   }
   handleChange = event => {
@@ -32,7 +32,7 @@ class IssueCreate extends Component {
     const { issue } = this.state
     console.log('this is the user: ' + user)
     issueCreate(issue, user, match.params.id)
-      .then(res => this.setState({ createdIssueId: res.data._id }))
+      .then(res => this.setState({ createdIssueId: true }))
       .then(() => msgAlert({
         heading: 'Created successfully.',
         message: 'Showing created issue',
@@ -47,10 +47,10 @@ class IssueCreate extends Component {
       })
   }
   render () {
-    const { issue } = this.state
-    // if (createdProjectId) {
-    //   return <Redirect to={`/projects/${createdProjectId}`} />
-    // }
+    const { issue, createdIssueId } = this.state
+    if (createdIssueId) {
+      return <Redirect to={`/projects/${this.props.match.params.id}`} />
+    }
     return (
       <div className='row'>
         <div className='col-sm-10 col-md-8 mx-auto mt-5'>

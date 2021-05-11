@@ -15,6 +15,7 @@ import ProjectShow from './components/ProjectRoutes/ShowProject'
 import ProjectIndex from './components/ProjectRoutes/IndexProject'
 import ProjectUpdate from './components/ProjectRoutes/UpdateProject'
 import IssueCreate from './components/IssueRoutes/CreateIssue'
+import IssueIndex from './components/IssueRoutes/IndexIssues'
 
 class App extends Component {
   constructor (props) {
@@ -85,6 +86,9 @@ class App extends Component {
           )}/>
           <AuthenticatedRoute user={user} exact path='/projects/:id/issues' render={() => (
             <IssueCreate msgAlert={this.msgAlert} user={user} />
+          )}/>
+          <AuthenticatedRoute user={user} exact path='/projects/:id/view-issues' render={() => (
+            <IssueIndex msgAlert={this.msgAlert} user={user} />
           )}/>
         </main>
       </Fragment>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { projectShow, projectDelete } from '../../api/project_api'
 import { withRouter, Link } from 'react-router-dom'
 import Spinner from 'react-bootstrap/Spinner'
+import IssueIndex from '../IssueRoutes/IndexIssues'
 
 const patchDelete = {
   display: 'flex',
@@ -64,14 +65,14 @@ class ProjectShow extends Component {
     if (this.props.user && this.props.user._id === project.owner) {
       firstProjectJsx = (
         <div>
-          <div className="col-9"><h2>Project Name: {project.name}</h2></div>
+          <div className="col-12"><h2>Project Name: {project.name}</h2></div>
           <div style={patchDelete}>
             <button onClick={this.deleteProject} className="btn"><small className="text-muted"><Link to={'/'}>Delete</Link></small></button>
             <button className="btn"><small className="text-muted"><Link to={'/projects/' + this.props.match.params.id + '/edit/'}>Edit</Link></small></button>
             <button className="btn"><small className="text-muted"><Link to={'/projects/' + this.props.match.params.id + '/issues'}>Create Issue</Link></small></button>
           </div>
-          <div className="col-4"><h3>Target Start Date: {project.targetStartDate.substring(0, 10)}</h3></div>
-          <div className="col-6"><h3>Target End Date: {project.targetEndDate.substring(0, 10)}</h3></div>
+          <div className="col-12"><h3>Target Start Date: {project.targetStartDate.substring(0, 10)}</h3></div>
+          <div className="col-12"><h3>Target End Date: {project.targetEndDate.substring(0, 10)}</h3></div>
         </div>
       )
     } else {
@@ -93,11 +94,12 @@ class ProjectShow extends Component {
               </div>
               <ul className="sidebar__menu">
                 <li><a aria-current="page" className="" href="/">Project Info</a></li>
-                <li><a href="/about">Create issues</a></li>
+                <li><a href="/projects/:id/issues">Create issues</a></li>
               </ul>
             </div>
           </div>
           <div className="container__body">
+            <IssueIndex />
             <div className="container__mobile-header">
               <div className="mobile-header">
                 <div className="mobile-header__menu">
